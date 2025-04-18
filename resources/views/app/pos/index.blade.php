@@ -14,8 +14,14 @@
             <div class="mt-5 grid grid-cols-3 gap-5">
                 @foreach ($products as $product)
                     <div class="bg-white rounded-md shadow-md p-3">
-                        <img src="/uploads/products/{{ $product->image }}" alt=""
-                            class="h-[200px] w-full object-cover rounded-md">
+                        @php
+                            if ($product->image) {
+                                $image = "/uploads/products/$product->image";
+                            } else {
+                                $image = '/imgs/blank-product.png';
+                            }
+                        @endphp
+                        <img src="{{ $image }}" alt="" class="h-[200px] w-full object-cover rounded-md">
                         <div class="mt-3 flex flex-col">
                             <span class="poppins-medium text-black">{{ $product->name }}</span>
                             <span class="text-gray-600 mt-1 poppins-medium text-sm">
@@ -23,7 +29,7 @@
                             </span>
                         </div>
                         <div class="mt-3">
-                            <button type="button" data-id="{{ $product->id }}" data-image="{{ $product->image }}"
+                            <button type="button" data-id="{{ $product->id }}" data-image="{{ $image }}"
                                 data-name="{{ $product->name }}" data-price="{{ $product->price }}"
                                 data-abbr="{{ $product->unit->abbr }}" data-type="add" data-modal-target="crud-modal"
                                 data-modal-toggle="crud-modal"
@@ -213,7 +219,8 @@
             const qty = $(this).data("qty") ?? 1;
 
             $("#qty-preview").val(qty);
-            $("#image-preview").attr("src", `/uploads/products/${image}`);
+            $("#image-preview").attr("src", image);
+            // $("#image-preview").attr("src", `/uploads/products/${image}`);
             $("#name-preview").text(name);
             $("#unit-preview").text(abbr);
 
@@ -283,7 +290,7 @@
                 total += item.total;
                 html += `
                 <div class="border border-gray-300 rounded-md p-2 flex gap-3">
-                    <img src="/uploads/products/${item.image}"
+                    <img src="${item.image}"
                         class="w-[70px] h-[70px] object-cover rounded-md">
                     <div class="flex flex-col gap-1 w-[calc(100%-70px)]">
                         <span class="poppins-medium text-sm leading-[20px]">${item.name}</span>
@@ -323,7 +330,7 @@
                 totalAkhir += item.total;
                 html += `
                 <div class="border border-gray-300 rounded-md p-2 flex gap-3">
-                    <img src="/uploads/products/${item.image}"
+                    <img src="${item.image}"
                         class="w-[70px] h-[70px] object-cover rounded-md">
                     <div class="flex flex-col gap-1 w-[calc(100%-70px)]">
                         <span class="poppins-medium leading-[20px]">${item.name}</span>

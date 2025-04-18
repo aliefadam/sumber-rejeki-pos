@@ -52,8 +52,14 @@
                                 {{ $product->unit->name }} ({{ $product->unit->abbr }})
                             </td>
                             <td class="px-6 py-4">
-                                <img src="/uploads/products/{{ $product->image }}"
-                                    class="size-20 object-cover rounded-md shadow-md">
+                                @php
+                                    if ($product->image) {
+                                        $image = "/uploads/products/$product->image";
+                                    } else {
+                                        $image = '/imgs/blank-product.png';
+                                    }
+                                @endphp
+                                <img src="{{ $image }}" class="size-20 object-cover rounded-md shadow-md">
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-5">

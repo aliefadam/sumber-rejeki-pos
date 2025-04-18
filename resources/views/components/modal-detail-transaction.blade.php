@@ -27,7 +27,7 @@
 <div class="p-4 space-y-3">
     @foreach ($transaction->transactionDetails as $detail)
         <div class="border border-gray-300 rounded-md p-2 flex gap-3">
-            <img src="/uploads/products/{{ $detail->product_image }}" class="w-[50px] h-[50px] object-cover rounded-md">
+            <img src="{{ $detail->product_image }}" class="w-[50px] h-[50px] object-cover rounded-md">
             <div class="flex flex-col gap-1 w-[calc(100%-70px)]">
                 <span class="poppins-medium leading-[20px] text-sm">{{ $detail->product_name }}</span>
                 <div class="flex justify-between poppins-medium text-gray-700 text-xs">
