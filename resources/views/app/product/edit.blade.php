@@ -24,7 +24,7 @@
                     required />
             </div>
             <div class="mb-5">
-                <label for="unit_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label for="unit_id" class="block mb-2 text-sm font-medium text-gray-900">
                     Dijual dalam satuan
                 </label>
                 <select id="unit_id" name="unit_id" required

@@ -1,7 +1,9 @@
 <?php
 
 use App\Models\Menu;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 if (!function_exists("setNotification")) {
     function setNotification($icon, $title, $text)
@@ -67,5 +69,32 @@ if (!function_exists("notificationFlash")) {
             "title" => $icon == "success" ? "Success" : "Error",
             "text" => $text,
         ]);
+    }
+}
+
+if (!function_exists("getTransactionOneYear")) {
+    function getTransactionOneYear()
+    {
+        $months = range(1, 12);
+        $transactions = Transaction::select(
+            DB::raw('MONTH(created_at) as month'),
+            DB::raw('COUNT(id) as total_transactions'),
+            DB::raw('SUM(total) as total_revenue')
+        )
+            ->whereYear('created_at', now()->year)
+            ->groupBy(DB::raw('MONTH(created_at)'))
+            ->orderBy(DB::raw('MONTH(created_at)'))
+            ->get()
+            ->keyBy('month');
+
+        $monthlyTransactions = collect($months)->map(function ($month) use ($transactions) {
+            return [
+                'month' => $month,
+                'total_transactions' => $transactions[$month]->total_transactions ?? 0,
+                'total_revenue' => $transactions[$month]->total_revenue ?? 0.0,
+            ];
+        });
+
+        return $monthlyTransactions;
     }
 }

@@ -15,8 +15,16 @@ class TransactionController extends Controller
     {
         return view("app.pos.index", [
             "title" => "Halaman Kasir",
-            "products" => Product::all(),
             "buyer_name" => "Pembeli " . Transaction::count() + 1,
+        ]);
+    }
+
+    public function init()
+    {
+        return response()->json([
+            "view" => view('components.product-item', [
+                "products" => Product::all(),
+            ])->render(),
         ]);
     }
 

@@ -28,7 +28,7 @@ class AuthController extends Controller
             $role = Auth::user()->role;
             return redirect()->route("admin.dashboard");
         } else {
-            return back()->with("notification", setNotification("error", "Gagal", "Email atau password salah"));
+            return back()->with("notification", setNotification("error", "Gagal", "Email atau password salah"))->withInput();
         }
     }
 
@@ -36,5 +36,33 @@ class AuthController extends Controller
     {
         Auth::logout();
         return redirect()->route("login");
+    }
+
+    public function change_password()
+    {
+        return view("auth.change-password", [
+            "title" => "Ubah Password",
+        ]);
+    }
+
+    public function change_password_post(Request $request)
+    {
+        $request->validate([
+            "password_old" => "required|current_password",
+            "password" => "required|confirmed",
+        ], [
+            "password_old.required" => "Password lama harus diisi",
+            "password_old.current_password" => "Password lama salah",
+            "password.required" => "Password baru harus diisi",
+            "password.confirmed" => "Konfirmasi password baru tidak sama",
+        ]);
+
+        $user = User::find(Auth::user()->id);
+        $user->update([
+            "password" => bcrypt($request->password)
+        ]);
+
+        Auth::logout();
+        return redirect_user("success", "Berhasil mengubah password, silahkan login kembali", "login");
     }
 }

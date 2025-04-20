@@ -5,41 +5,14 @@
         <div class="w-full h-full overflow-y-auto scrollbar pr-5">
             <div class="relative w-full">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <i class="fa-regular fa-magnifying-glass text-gray-700"></i>
+                    <i class="fa-regular fa-magnifying-glass"></i>
                 </div>
-                <input type="text" id="simple-search"
-                    class="bg-white border-transparent shadow-sm text-gray-900 text-sm rounded-md focus:ring-gray-300 focus:border-gray-300 block w-full ps-10 h-[40px]"
-                    placeholder="Cari produk..." />
+                <input type="text" id="search-product" name="search"
+                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-transparent focus:border-gray-800 block w-full ps-10 p-2.5"
+                    placeholder="Cari produk..." required autocomplete="off" />
             </div>
-            <div class="mt-5 grid grid-cols-3 gap-5">
-                @foreach ($products as $product)
-                    <div class="bg-white rounded-md shadow-md p-3">
-                        @php
-                            if ($product->image) {
-                                $image = "/uploads/products/$product->image";
-                            } else {
-                                $image = '/imgs/blank-product.png';
-                            }
-                        @endphp
-                        <img src="{{ $image }}" alt="" class="h-[200px] w-full object-cover rounded-md">
-                        <div class="mt-3 flex flex-col">
-                            <span class="poppins-medium text-black">{{ $product->name }}</span>
-                            <span class="text-gray-600 mt-1 poppins-medium text-sm">
-                                {{ format_rupiah($product->price) }} /{{ $product->unit->abbr }}
-                            </span>
-                        </div>
-                        <div class="mt-3">
-                            <button type="button" data-id="{{ $product->id }}" data-image="{{ $image }}"
-                                data-name="{{ $product->name }}" data-price="{{ $product->price }}"
-                                data-abbr="{{ $product->unit->abbr }}" data-type="add" data-modal-target="crud-modal"
-                                data-modal-toggle="crud-modal"
-                                class="btn-add-order focus:outline-none text-white cursor-pointer bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full">
-                                <i class="fa-regular fa-cart-plus mr-1"></i>
-                                <span>Tambah</span>
-                            </button>
-                        </div>
-                    </div>
-                @endforeach
+            <div class="mt-5 grid grid-cols-3 gap-5" id="container-product">
+                {{-- Javascript --}}
             </div>
         </div>
         <div class="w-[500px] bg-white shadow-md rounded-md">
@@ -47,7 +20,7 @@
                 <h1 class="text-center poppins-medium">Daftar Pesanan</h1>
             </div>
             <div class="p-4 h-[calc(100vh-280px)] space-y-3 overflow-auto scrollbar" id="list-order-container">
-                {{--  --}}
+                {{-- Javascript --}}
             </div>
             <div class="p-4 border-t border-gray-300">
                 <div class="flex justify-between poppins-medium">
@@ -159,7 +132,7 @@
                             <div class="">
                                 <label for="uang-pembeli" class="block mb-2 text-sm font-medium text-gray-700">Uang
                                     Pembeli</label>
-                                <input type="number" name="uang-pembeli" id="uang-pembeli"
+                                <input type="text" name="uang-pembeli" id="uang-pembeli"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" />
                             </div>
                             <div class="">
@@ -192,6 +165,7 @@
 @endsection
 @section('script')
     <script>
+        initProduct();
         const listOrder = [];
 
         $(document).on("click", ".btn-add-order", addOrder);
@@ -201,6 +175,7 @@
         $(document).on("click", ".btn-add-discount", addDiscount);
         $(document).on("input", "#uang-pembeli", hitungKembalian);
         $(document).on("click", "#btn-payment-now", paymentNow);
+        $(document).on("input", "#search-product", searchProduct);
 
         $(document).on("click", "#TESSS", function(e) {
             e.stopPropagation();
@@ -208,6 +183,86 @@
         $(document).on("click", ".close-modal-detail-order", function(e) {
             initFlowbite();
         });
+
+        $('#uang-pembeli').on('input', function(e) {
+            let value = e.target.value;
+            value = value.replace(/[^\d]/g, '');
+            const formatted = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            e.target.value = formatted;
+        });
+
+        function initProduct() {
+            $.ajax({
+                type: "GET",
+                url: "{{ route('admin.transaction.init') }}",
+                beforeSend: function() {
+                    $("#container-product").html(loadingSearchProduct());
+                },
+                success: function(response) {
+                    $("#container-product").html(response.view);
+                    initFlowbite();
+                }
+            });
+        }
+
+        function searchProduct() {
+            const keyword = $(this).val();
+            if (keyword != "") {
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('admin.product.search', ':keyword') }}".replace(":keyword", keyword),
+                    beforeSend: function() {
+                        $("#container-product").html(loadingSearchProduct());
+                    },
+                    success: function(response) {
+                        const view = response.view;
+                        if (view == "") {
+                            $("#container-product").html(notFoundProduct());
+                        } else {
+                            $("#container-product").html(response.view);
+                        }
+                        initFlowbite();
+                    }
+                });
+            } else {
+                initProduct();
+            }
+        }
+
+        function loadingSearchProduct() {
+            let html = "";
+            for (let i = 0; i < 6; i++) {
+                html += `
+                    <div class="bg-white rounded-md shadow-md p-3">
+                        <div src="" alt="" class="h-[200px] bg-gray-300 animate-pulse w-full object-cover rounded-md"></div>
+                        <div class="mt-3 flex flex-col">
+                            <span class="poppins-medium text-transparent bg-gray-200 animate-pulse">Beras Pinpin</span>
+                            <span class="text-gray-600 mt-2 poppins-medium text-sm text-transparent bg-gray-200 animate-pulse w-1/2">
+                                Rp. 10,00000
+                            </span>
+                        </div>
+                        <div class="mt-3">
+                            <button type="button"
+                                class="btn-add-order focus:outline-none text-white cursor-pointer bg-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full cursor-default">
+                                <i class="fa-regular fa-cart-plus mr-1 text-transparent"></i>
+                                <span class="text-transparent">Tambah</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+            return html;
+        }
+
+        function notFoundProduct() {
+            return `
+            <div class="col-span-3 flex justify-center">
+                <span class="text-gray-600 poppins-medium">
+                    Tidak ada produk yang cocok
+                </span>
+            </div>
+            `;
+        }
 
         function addOrder() {
             const id = $(this).data("id");
@@ -220,7 +275,6 @@
 
             $("#qty-preview").val(qty);
             $("#image-preview").attr("src", image);
-            // $("#image-preview").attr("src", `/uploads/products/${image}`);
             $("#name-preview").text(name);
             $("#unit-preview").text(abbr);
 
@@ -403,9 +457,16 @@
             });
         }
 
+        // function hitungKembalian() {
+        //     const uangPembeli = +$("#uang-pembeli").val();
+        //     const totalAkhir = +$("#total-akhir").text().replace("Rp", "").replace(".", "").trim();
+        //     const kembalian = uangPembeli - totalAkhir;
+        //     $("#kembalian").html(formatRupiah(kembalian));
+        // }
+
         function hitungKembalian() {
-            const uangPembeli = +$("#uang-pembeli").val();
-            const totalAkhir = +$("#total-akhir").text().replace("Rp", "").replace(".", "").trim();
+            const uangPembeli = +$("#uang-pembeli").val().replace(/,/g, '');
+            const totalAkhir = +$("#total-akhir").text().replace(/[^0-9]/g, '');
             const kembalian = uangPembeli - totalAkhir;
             $("#kembalian").html(formatRupiah(kembalian));
         }
@@ -452,7 +513,7 @@
                 data: {
                     _token: "{{ csrf_token() }}",
                     name: $("#nama-pembeli").val(),
-                    amount_paid: $("#uang-pembeli").val(),
+                    amount_paid: $("#uang-pembeli").val().replace(/,/g, ''),
                     total: unformatRupiah($("#total-akhir").text()),
                     change: unformatRupiah($("#kembalian").text()),
                     listOrder: listOrder,

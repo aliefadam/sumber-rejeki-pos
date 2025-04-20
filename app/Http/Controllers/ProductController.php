@@ -17,6 +17,17 @@ class ProductController extends Controller
         ]);
     }
 
+    public function search($keyword)
+    {
+        $products = Product::where("name", "like", "%$keyword%")->get();
+
+        return response()->json([
+            "view" => view('components.product-item', [
+                "products" => $products,
+            ])->render(),
+        ]);
+    }
+
     public function create()
     {
         return view("app.product.create", [

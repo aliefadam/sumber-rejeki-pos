@@ -11,7 +11,7 @@
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                         <i class="fa-regular fa-user"></i>
                     </div>
-                    <input type="text" id="email" name="email"
+                    <input type="text" id="email" name="email" value="{{ old('email') }}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full ps-10 p-2.5"
                         placeholder="Email" required />
                 </div>

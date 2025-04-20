@@ -23,13 +23,13 @@
                         </div>
                         <div class="relative">
                             <button type="button" data-dropdown-toggle="dropdown-user-popup"
-                                class="flex text-sm rounded-full focus:ring-4 focus:ring-gray-300"
+                                class="flex text-sm cursor-pointer rounded-full focus:ring-4 focus:ring-gray-300"
                                 id="user-menu-button">
                                 <img class="w-8 h-8 shadow-sm rounded-full"
                                     src="{{ auth()->user()->image ? '/uploads/users/' . auth()->user()->image : '/imgs/no-image.png' }}" />
                             </button>
                             <div id="dropdown-user-popup"
-                                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-md w-72 !-translate-x-[250px] !translate-y-[60px]">
+                                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-md w-72 !-translate-x-[20px] !translate-y-[10px]">
                                 <div class="px-4 py-3 text-sm text-gray-900  flex gap-3 items-center">
                                     <img src="{{ auth()->user()->image ? '/uploads/users/' . auth()->user()->image : '/imgs/no-image.png' }}"
                                         class="w-10 h-10 rounded-full" alt="">
@@ -40,13 +40,14 @@
                                 </div>
                                 <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdown-user">
                                     <li>
-                                        <a href="" class="block px-4 py-2 hover:bg-gray-100">
-                                            Change Password
+                                        <a href="{{ route('change-password') }}"
+                                            class="block px-4 py-2 hover:bg-gray-100">
+                                            Ganti Password
                                         </a>
                                     </li>
                                     <li>
                                         <a href="{{ route('logout') }}" class="block px-4 py-2 hover:bg-gray-100">
-                                            Logout
+                                            Keluar
                                         </a>
                                     </li>
                                 </ul>

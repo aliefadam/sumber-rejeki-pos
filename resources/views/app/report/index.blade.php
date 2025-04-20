@@ -9,6 +9,27 @@
             class="text-white bg-gray-600 border border-gray-600 hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5">
             <i class="fas fa-plus mr-1.5"></i> Tambah Produk
         </a> --}}
+        <button type="button" data-modal-target="export-transaksi-modal" data-modal-toggle="export-transaksi-modal"
+            class="btn-detail text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 cursor-pointer">
+            <i class="fa-regular fa-file-pdf mr-1"></i>
+            Export Laporan
+            {{-- <i class="fa-solid fa-caret-down ml-2"></i> --}}
+        </button>
+
+        <!-- Dropdown menu -->
+        {{-- <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 ">
+            <ul class="py-2 text-sm text-gray-700" aria-labelledby="btn-export">
+                <li>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Harian</a>
+                </li>
+                <li>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Bulanan</a>
+                </li>
+                <li>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Tahunan</a>
+                </li>
+            </ul>
+        </div> --}}
     </div>
 
     <div class="mt-5">
@@ -123,7 +144,7 @@
                 </div>
                 <!-- Modal body -->
                 <div class="h-[400px] overflow-y-auto scrollbar" id="container-detail-order">
-
+                    {{--  --}}
                 </div>
                 <!-- Modal footer -->
                 <div class="p-4 md:p-5 border-t border-gray-200 rounded-b">
@@ -133,6 +154,59 @@
                         Cetak
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Export Transaksi Modal --}}
+    <div id="export-transaksi-modal" tabindex="-1" aria-hidden="true"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full close-modal-detail-order">
+        <div class="relative p-4 w-full max-w-2xl max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow-sm">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900">
+                        Export Laporan
+                    </h3>
+                    <button type="button"
+                        class="close-modal-detail-order text-gray-400 cursor-pointer bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                        data-modal-hide="export-transaksi-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <form id="form-report" action="{{ route('admin.report.export') }}" method="POST">
+                    @csrf
+                    <div class="p-4 md:p-5 space-y-4" id="container-detail-order">
+                        <div class="text-gray-700">
+                            <label for="start" class="block mb-2 text-sm font-medium">Tanggal Awal</label>
+                            <div class="w-full">
+                                <input type="date" id="start" name="start"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5"
+                                    required />
+                            </div>
+                        </div>
+                        <div class="text-gray-700 mt-4">
+                            <label for="end" class="block mb-2 text-sm font-medium">Tanggal Akhir</label>
+                            <div class="w-full">
+                                <input type="date" id="end" name="end"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5"
+                                    required />
+                            </div>
+                        </div>
+                        <button type="submit" id="btn-export"
+                            class="btn-detail text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 cursor-pointer w-full mt-3">
+                            <i class="fa-solid fa-download mr-1"></i>
+                            Export Laporan
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
