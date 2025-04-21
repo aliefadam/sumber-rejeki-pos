@@ -36,6 +36,7 @@ Route::middleware("auth")->group(function () {
         Route::get('/{id}/edit', [TransactionController::class, "edit"])->name("admin.transaction.edit");
         Route::put('/{id}', [TransactionController::class, "update"])->name("admin.transaction.update");
         Route::delete('/{id}', [TransactionController::class, "destroy"])->name("admin.transaction.destroy");
+        Route::get('/print/{id}', [TransactionController::class, "print"])->name("admin.transaction.print");
     });
 
     Route::prefix("report")->group(function () {

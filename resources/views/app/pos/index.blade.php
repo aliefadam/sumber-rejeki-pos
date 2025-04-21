@@ -130,17 +130,17 @@
                         </div>
                         <div class="grid grid-cols-2 gap-5 poppins-medium mt-5">
                             <div class="">
-                                <label for="uang-pembeli" class="block mb-2 text-sm font-medium text-gray-700">Uang
-                                    Pembeli</label>
-                                <input type="text" name="uang-pembeli" id="uang-pembeli"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" />
-                            </div>
-                            <div class="">
                                 <label for="nama-pembeli" class="block mb-2 text-sm font-medium text-gray-700">Nama
                                     Pembeli</label>
                                 <input type="text" name="nama-pembeli" id="nama-pembeli"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5"
                                     value="{{ $buyer_name }}" />
+                            </div>
+                            <div class="">
+                                <label for="uang-pembeli" class="block mb-2 text-sm font-medium text-gray-700">Uang
+                                    Pembeli</label>
+                                <input type="text" name="uang-pembeli" id="uang-pembeli"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5" />
                             </div>
                         </div>
                         <div class="flex justify-between poppins-medium mt-5 text-red-700">
@@ -457,13 +457,6 @@
             });
         }
 
-        // function hitungKembalian() {
-        //     const uangPembeli = +$("#uang-pembeli").val();
-        //     const totalAkhir = +$("#total-akhir").text().replace("Rp", "").replace(".", "").trim();
-        //     const kembalian = uangPembeli - totalAkhir;
-        //     $("#kembalian").html(formatRupiah(kembalian));
-        // }
-
         function hitungKembalian() {
             const uangPembeli = +$("#uang-pembeli").val().replace(/,/g, '');
             const totalAkhir = +$("#total-akhir").text().replace(/[^0-9]/g, '');
@@ -519,6 +512,7 @@
                     listOrder: listOrder,
                 },
                 success: function(response) {
+                    window.open(response.url, "_blank");
                     location.reload();
                 }
             });

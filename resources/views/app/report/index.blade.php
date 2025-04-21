@@ -5,31 +5,11 @@
         @include('partials.breadcrumb', [
             'current' => $title,
         ])
-        {{-- <a href="{{ route('admin.product.create') }}"
-            class="text-white bg-gray-600 border border-gray-600 hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5">
-            <i class="fas fa-plus mr-1.5"></i> Tambah Produk
-        </a> --}}
         <button type="button" data-modal-target="export-transaksi-modal" data-modal-toggle="export-transaksi-modal"
             class="btn-detail text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 cursor-pointer">
             <i class="fa-regular fa-file-pdf mr-1"></i>
             Export Laporan
-            {{-- <i class="fa-solid fa-caret-down ml-2"></i> --}}
         </button>
-
-        <!-- Dropdown menu -->
-        {{-- <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 ">
-            <ul class="py-2 text-sm text-gray-700" aria-labelledby="btn-export">
-                <li>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Harian</a>
-                </li>
-                <li>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Bulanan</a>
-                </li>
-                <li>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Tahunan</a>
-                </li>
-            </ul>
-        </div> --}}
     </div>
 
     <div class="mt-5">
@@ -112,6 +92,10 @@
                                     class="btn-detail text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-xs px-5 py-2.5 cursor-pointer">
                                     Detail
                                 </button>
+                                {{-- <button type="button" data-id="{{ $transaction->id }}"
+                                    class="btn-cetak text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-xs px-5 py-2.5 cursor-pointer">
+                                    Cetak
+                                </button> --}}
                             </td>
                         </tr>
                     @endforeach
@@ -131,7 +115,7 @@
                     <h3 class="text-lg font-semibold text-gray-900">
                         Detail Transaksi
                     </h3>
-                    <button type="button"
+                    <button type="button" id="close-modal-detail-order"
                         class="close-modal-detail-order text-gray-400 cursor-pointer bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
                         data-modal-hide="default-modal">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -148,11 +132,11 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="p-4 md:p-5 border-t border-gray-200 rounded-b">
-                    <button type="button" id="btn-print"
-                        class="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg cursor-pointer text-sm px-5 py-2.5 text-center w-full">
+                    <a href="javascript:void(0)" id="btn-print" data-transaction-id=""
+                        class="text-white block bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg cursor-pointer text-sm px-5 py-2.5 text-center w-full">
                         <i class="fa-regular fa-print mr-1"></i>
                         Cetak
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -212,9 +196,12 @@
     </div>
 @endsection
 
+<div id="print-area" class="hidden"></div>
+
 @section('script')
     <script>
         $(".btn-detail").click(detailOrder);
+        $(document).on("click", "#btn-print", printStruk);
 
         function detailOrder() {
             const transactionID = $(this).data("id");
@@ -233,16 +220,22 @@
                     $("#btn-print")
                         .removeClass("bg-emerald-700 hover:bg-emerald-800 cursor-pointer")
                         .addClass("bg-gray-300 cursor-not-allowed")
-                        .attr("disabled", true);
+                        .attr("disabled", true).data("id", 0);
                 },
                 success: function(response) {
                     $("#btn-print")
                         .removeClass("bg-gray-300 cursor-not-allowed")
                         .addClass("bg-emerald-700 hover:bg-emerald-800 cursor-pointer")
-                        .attr("disabled", false);
+                        .attr("disabled", false).data("id", transactionID);
                     $("#container-detail-order").html(response.view);
                 }
             });
+        }
+
+        function printStruk() {
+            const transactionID = $(this).data("id");
+            const url = "{{ route('admin.transaction.print', ':id') }}".replace(":id", transactionID);
+            window.open(url, "_blank");
         }
     </script>
 @endsection

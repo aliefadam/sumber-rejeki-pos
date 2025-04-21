@@ -1,0 +1,87 @@
+#print-area .container {
+    width: 300px;
+}
+
+#print-area .header {
+    margin: 0;
+    text-align: center;
+}
+
+#print-area h2,
+#print-area p {
+    margin: 0;
+}
+
+#print-area .flex-container-1 {
+    display: flex;
+    margin-top: 10px;
+}
+
+#print-area .flex-container-1 > div {
+    text-align: left;
+}
+
+#print-area .flex-container-1 .right {
+    text-align: right;
+    width: 200px;
+}
+
+#print-area .flex-container-1 .left {
+    width: 100px;
+}
+
+#print-area .flex-container {
+    width: 300px;
+    display: flex;
+}
+
+#print-area .flex-container > div {
+    -ms-flex: 1;
+    /* IE 10 */
+    flex: 1;
+}
+
+#print-area ul {
+    display: contents;
+}
+
+#print-area ul li {
+    display: block;
+}
+
+#print-area hr {
+    border-style: dashed;
+}
+
+#print-area a {
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    background: #00e676;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
+
+#print-area .alamat {
+    padding: 5px;
+    display: block;
+    margin-top: 2px;
+}
+
+#print-area .please {
+    display: block;
+    margin-top: -15px;
+}
+
+@media print {
+    #sidebar,
+    #topbar,
+    #content {
+        display: none !important;
+    }
+
+    #print-area {
+        display: block !important;
+    }
+}

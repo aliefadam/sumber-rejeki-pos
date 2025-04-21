@@ -37,7 +37,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     {{-- Custom CSS --}}
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="/css/style.css">
 
     {{-- Datatables --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css">
@@ -57,7 +57,7 @@
     @include('partials.topbar')
     @include('partials.sidebar')
 
-    <div class="p-5 md:ml-64 mt-16">
+    <div class="p-5 md:ml-64 mt-16" id="content">
         @yield('content')
     </div>
 

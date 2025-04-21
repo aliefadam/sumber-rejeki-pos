@@ -24,6 +24,9 @@ class ReportController extends Controller
             "view" => view("components.modal-detail-transaction", [
                 "transaction" => $transaction,
             ])->render(),
+            "html_print" => view("app.pos.invoice", [
+                "transaction" => $transaction,
+            ])->render(),
         ]);
     }
 
