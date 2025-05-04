@@ -67,5 +67,12 @@
                 </td>
             </tr>
         @endforeach
+
+        <tr style="border: 1px solid black">
+            <td colspan="4" style="text-align: right; font-weight: bold">Total</td>
+            <td colspan="2" style="text-align: center; font-weight: bold">
+                {{ format_rupiah($transactions->sum('total')) }}
+            </td>
+        </tr>
     </tbody>
 </table>

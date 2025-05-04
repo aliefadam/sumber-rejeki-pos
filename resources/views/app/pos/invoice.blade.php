@@ -6,6 +6,8 @@
 <style>
     .container {
         width: 300px;
+        /* width: 58mm; */
+        height: fit-content;
         font-family: "Courier Prime", monospace;
         font-size: 14px;
         text-transform: uppercase
@@ -82,13 +84,23 @@
         display: block;
         margin-top: -15px;
     }
+
+    @media print {
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    }
 </style>
 
 <div class="container">
     <div class="header" style="margin-bottom: 20px;">
         <h2>Sumber Rejeki</h2>
         <span class="alamat">
-            JL. Bandarejo Tama No.45, Sememi, Benowo, Surabaya
+            {{-- JL. Bandarejo Tama No.45, Sememi, Benowo, Surabaya --}}
+            {{-- JL. Planet Bumi, Sememi, Benowo, Surabaya --}}
+            {{-- JL. Sememi, Benowo, Surabaya --}}
+            JL. Raya Bandarejo, Sememi, Kec. Benowo, Surabaya
         </span>
     </div>
     <hr>
