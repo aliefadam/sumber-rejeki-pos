@@ -174,9 +174,10 @@
         $(document).on("click", "#btn-confirm-order", confirmOrder);
         $(document).on("click", "#btn-detail-order", detailOrder);
         $(document).on("click", ".btn-add-discount", addDiscount);
-        $(document).on("input", "#uang-pembeli", hitungKembalian);
+        // $(document).on("input", "#uang-pembeli", hitungKembalian);
         $(document).on("click", "#btn-payment-now", paymentNow);
         $(document).on("input", "#search-product", searchProduct);
+        $(document).on("input", "#qty-preview", setEnter);
 
         $(document).on("click", "#TESSS", function(e) {
             e.stopPropagation();
@@ -185,12 +186,26 @@
             initFlowbite();
         });
 
+        $('#uang-pembeli').on('keydown', function(e) {
+            if (e.keyCode === 13) {
+                paymentNow();
+            }
+        });
+
         $('#uang-pembeli').on('input', function(e) {
             let value = e.target.value;
             value = value.replace(/[^\d]/g, '');
             const formatted = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             e.target.value = formatted;
+
+            hitungKembalian();
         });
+
+        function setEnter() {
+            if (event.keyCode === 13) {
+                addOrder();
+            }
+        }
 
         function initProduct() {
             $.ajax({
@@ -266,6 +281,8 @@
         }
 
         function addOrder() {
+            $("#qty-preview").focus();
+
             const id = $(this).data("id");
             const image = $(this).data("image");
             const name = $(this).data("name");
@@ -378,6 +395,7 @@
         }
 
         function detailOrder() {
+            $("#uang-pembeli").focus();
             let totalAkhir = 0;
             let html = "";
 
