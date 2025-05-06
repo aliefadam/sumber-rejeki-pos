@@ -8,7 +8,7 @@
     <title>Sumber Rejeki - {{ $title }}</title>
 
     {{-- Logo --}}
-    <link rel="shortcut icon" href="{{ asset('imgs/Logo Tangerine-black.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('imgs/pos-terminal.png') }}" type="image/x-icon">
 
     {{-- Poppins --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
