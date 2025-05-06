@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between">
             <div class="flex items-center justify-start gap-3">
                 <button id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar"
-                    class="p-3 text-gray-600 flex justify-center items-center rounded cursor-pointer lg:hidden hover:text-gray-900 hover:bg-gray-100">
+                    class="p-3 text-gray-600 flex justify-center items-center rounded cursor-pointer lg:hiddens hover:text-gray-900 hover:bg-gray-100">
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="flex-shrink-0 flex items-center gap-2 ps-2">

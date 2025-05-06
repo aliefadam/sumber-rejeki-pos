@@ -57,9 +57,12 @@
     @include('partials.topbar')
     @include('partials.sidebar')
 
-    <div class="p-5 md:ml-64 mt-16" id="content">
+    <div class="p-5 mt-16" id="content">
         @yield('content')
     </div>
+    {{-- <div class="p-5 md:ml-64 mt-16" id="content">
+        @yield('content')
+    </div> --}}
 
     {{-- Jquery --}}
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

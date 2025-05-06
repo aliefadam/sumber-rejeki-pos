@@ -11,7 +11,8 @@
                     class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-transparent focus:border-gray-800 block w-full ps-10 p-2.5"
                     placeholder="Cari produk..." required autocomplete="off" />
             </div>
-            <div class="mt-5 grid grid-cols-3 gap-5" id="container-product">
+            <div class="mt-5 grid grid-cols-4 gap-5" id="container-product">
+                {{-- <div class="mt-5 grid grid-cols-3 gap-5" id="container-product"> --}}
                 {{-- Javascript --}}
             </div>
         </div>
