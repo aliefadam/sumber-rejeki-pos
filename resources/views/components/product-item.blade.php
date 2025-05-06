@@ -1,5 +1,5 @@
 @foreach ($products as $product)
-    <div class="bg-white rounded-md shadow-md p-3">
+    <div class="bg-white rounded-md shadow-md p-3 h-fit">
         @php
             if ($product->image) {
                 $image = "/uploads/products/$product->image";

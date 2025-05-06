@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="flex gap-3 h-[calc(100vh-110px)]">
+    <div class="flex gap-5 lg:gap-3 flex-col lg:flex-row">
         <div class="w-full h-full overflow-y-auto scrollbar pr-5">
             <div class="relative w-full">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -11,12 +11,12 @@
                     class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-transparent focus:border-gray-800 block w-full ps-10 p-2.5"
                     placeholder="Cari produk..." required autocomplete="off" />
             </div>
-            <div class="mt-5 grid grid-cols-4 gap-5" id="container-product">
+            <div class="mt-5 grid grid-cols-2 lg:grid-cols-4 gap-5 h-[500px]" id="container-product">
                 {{-- <div class="mt-5 grid grid-cols-3 gap-5" id="container-product"> --}}
                 {{-- Javascript --}}
             </div>
         </div>
-        <div class="w-[500px] bg-white shadow-md rounded-md">
+        <div class="w-auto lg:w-[500px] bg-white shadow-md rounded-md">
             <div class="p-4 border-b border-gray-300">
                 <h1 class="text-center poppins-medium">Daftar Pesanan</h1>
             </div>
@@ -38,6 +38,40 @@
             </div>
         </div>
     </div>
+    {{-- <div class="flex gap-3 h-[calc(100vh-110px)]">
+        <div class="w-full h-full overflow-y-auto scrollbar pr-5">
+            <div class="relative w-full">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <i class="fa-regular fa-magnifying-glass"></i>
+                </div>
+                <input type="text" id="search-product" name="search"
+                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-transparent focus:border-gray-800 block w-full ps-10 p-2.5"
+                    placeholder="Cari produk..." required autocomplete="off" />
+            </div>
+            <div class="mt-5 grid grid-cols-4 gap-5" id="container-product">
+            </div>
+        </div>
+        <div class="w-[500px] bg-white shadow-md rounded-md">
+            <div class="p-4 border-b border-gray-300">
+                <h1 class="text-center poppins-medium">Daftar Pesanan</h1>
+            </div>
+            <div class="p-4 h-[calc(100vh-280px)] space-y-3 overflow-auto scrollbar" id="list-order-container">
+            </div>
+            <div class="p-4 border-t border-gray-300">
+                <div class="flex justify-between poppins-medium">
+                    <h1>Total</h1>
+                    <h1 id="total">Rp. 0</h1>
+                </div>
+                <div class="mt-3">
+                    <button type="button" id="btn-detail-order" data-modal-target="default-modal"
+                        data-modal-toggle="default-modal"
+                        class="focus:outline-none text-white cursor-pointer bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full">
+                        Bayar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div> --}}
 
     {{-- Add and Edit Modal --}}
     <div id="crud-modal" tabindex="-1" aria-hidden="true"
