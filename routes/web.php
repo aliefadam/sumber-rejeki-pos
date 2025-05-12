@@ -7,9 +7,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
-Route::get("/tes-print", function () {
-    return view('test-print');
-});
+require __DIR__ . '/print.php';
 
 Route::middleware("guest")->group(function () {
     Route::get('/login', [AuthController::class, "login"])->name("login");
@@ -40,7 +38,7 @@ Route::middleware("auth")->group(function () {
         Route::get('/{id}/edit', [TransactionController::class, "edit"])->name("admin.transaction.edit");
         Route::put('/{id}', [TransactionController::class, "update"])->name("admin.transaction.update");
         Route::delete('/{id}', [TransactionController::class, "destroy"])->name("admin.transaction.destroy");
-        Route::get('/print/{id}', [TransactionController::class, "print"])->name("admin.transaction.print");
+        // Route::get('/print/{id}', [TransactionController::class, "print"])->name("admin.transaction.print");
     });
 
     Route::prefix("report")->group(function () {

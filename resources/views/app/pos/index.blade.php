@@ -565,7 +565,7 @@
                     listOrder: listOrder,
                 },
                 success: function(response) {
-                    window.open(response.url, "_blank");
+                    window.location.href = response.url;
                     location.reload();
                 }
             });

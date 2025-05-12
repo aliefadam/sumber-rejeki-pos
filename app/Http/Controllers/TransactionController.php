@@ -35,7 +35,7 @@ class TransactionController extends Controller
         DB::beginTransaction();
         try {
             $newTransaction = Transaction::create([
-                "invoice" => "INV" . date("Ymdhis") . strtoupper(Str::random(5)),
+                "invoice" => "INV" . date("Ymd") . strtoupper(Str::random(5)),
                 "name" => $request->name,
                 "total" => $request->total,
                 "amount_paid" => $request->amount_paid,
@@ -59,7 +59,7 @@ class TransactionController extends Controller
             DB::commit();
             notificationFlash("success", "Berhasil menambahkan transaksi");
             return response()->json([
-                "url" => route("admin.transaction.print", $newTransaction->id),
+                "url" => env('URL_BLUETOOTH') . env('DOMAIN') . "/transaction/print/" . $newTransaction->id,
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -72,13 +72,4 @@ class TransactionController extends Controller
     public function update(Request $request, $id) {}
 
     public function destroy($id) {}
-
-    public function print($id)
-    {
-        $transaction = Transaction::find($id);
-
-        return view("app.pos.invoice", [
-            'transaction' => $transaction,
-        ]);
-    }
 }

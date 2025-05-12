@@ -234,8 +234,8 @@
 
         function printStruk() {
             const transactionID = $(this).data("id");
-            const url = "{{ route('admin.transaction.print', ':id') }}".replace(":id", transactionID);
-            window.open(url, "_blank");
+            const url = `my.bluetoothprint.scheme://http://192.168.18.48:8000/transaction/print/${transactionID}`;
+            window.location.href = url;
         }
     </script>
 @endsection
