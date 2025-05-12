@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="flex gap-5 lg:gap-3 flex-col lg:flex-row">
-        <div class="w-full h-full overflow-y-auto scrollbar pr-5">
+        <div class="w-full h-[calc(100vh-110px)] overflow-y-auto scrollbar pr-5">
             <div class="relative w-full">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                     <i class="fa-regular fa-magnifying-glass"></i>

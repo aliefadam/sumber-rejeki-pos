@@ -7,6 +7,10 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
+Route::get("/tes-print", function () {
+    return view('test-print');
+});
+
 Route::middleware("guest")->group(function () {
     Route::get('/login', [AuthController::class, "login"])->name("login");
     Route::post('/login', [AuthController::class, "login_post"])->name("login.post");
