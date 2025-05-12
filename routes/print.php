@@ -23,14 +23,14 @@ Route::get('/transaction/print/{id}', function ($id) {
         'format' => 0,
     ];
 
-    $items[] = ['type' => 0, 'content' => '-----------------------------', 'bold' => 0, 'align' => 1, 'format' => 0];
+    $items[] = ['type' => 0, 'content' => '---------------------------------', 'bold' => 0, 'align' => 1, 'format' => 0];
 
     // Info transaksi
     $items[] = ['type' => 0, 'content' => "No Order : {$transaction->invoice}", 'bold' => 0, 'align' => 0, 'format' => 0];
     $items[] = ['type' => 0, 'content' => "Tanggal  : " . date('Y-m-d H:i:s', strtotime($transaction->created_at)), 'bold' => 0, 'align' => 0, 'format' => 0];
     $items[] = ['type' => 0, 'content' => "Nama     : {$transaction->name}", 'bold' => 0, 'align' => 0, 'format' => 0];
 
-    $items[] = ['type' => 0, 'content' => '-----------------------------', 'bold' => 0, 'align' => 1, 'format' => 0];
+    $items[] = ['type' => 0, 'content' => '---------------------------------', 'bold' => 0, 'align' => 1, 'format' => 0];
 
     // Detail produk
     foreach ($transaction->transactionDetails as $detail) {
@@ -39,14 +39,14 @@ Route::get('/transaction/print/{id}', function ($id) {
         $items[] = ['type' => 0, 'content' => "@" . number_format($price) . " = " . number_format($detail->total), 'bold' => 0, 'align' => 2, 'format' => 0];
     }
 
-    $items[] = ['type' => 0, 'content' => '-----------------------------', 'bold' => 0, 'align' => 1, 'format' => 0];
+    $items[] = ['type' => 0, 'content' => '---------------------------------', 'bold' => 0, 'align' => 1, 'format' => 0];
 
     // Total
     $items[] = ['type' => 0, 'content' => "Grand Total: " . number_format($transaction->total), 'bold' => 1, 'align' => 2, 'format' => 0];
     $items[] = ['type' => 0, 'content' => "Bayar: " . number_format($transaction->amount_paid), 'bold' => 0, 'align' => 2, 'format' => 0];
     $items[] = ['type' => 0, 'content' => "Kembalian: " . number_format($transaction->change), 'bold' => 0, 'align' => 2, 'format' => 0];
 
-    $items[] = ['type' => 0, 'content' => '-----------------------------', 'bold' => 0, 'align' => 1, 'format' => 0];
+    $items[] = ['type' => 0, 'content' => '---------------------------------', 'bold' => 0, 'align' => 1, 'format' => 0];
 
     // Footer
     $items[] = ['type' => 0, 'content' => 'Terimakasih', 'bold' => 1, 'align' => 1, 'format' => 0];
