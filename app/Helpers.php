@@ -4,6 +4,7 @@ use App\Models\Menu;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Laravolt\Avatar\Avatar;
 
 if (!function_exists("setNotification")) {
     function setNotification($icon, $title, $text)
@@ -96,5 +97,12 @@ if (!function_exists("getTransactionOneYear")) {
         });
 
         return $monthlyTransactions;
+    }
+}
+
+if (!function_exists("getImage")) {
+    function getImage($name)
+    {
+        Avatar::create($name)->toBase64();
     }
 }

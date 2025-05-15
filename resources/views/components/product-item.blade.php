@@ -4,7 +4,7 @@
             if ($product->image) {
                 $image = "/uploads/products/$product->image";
             } else {
-                $image = '/imgs/blank-product.png';
+                $image = Avatar::create($product->name)->toBase64();
             }
         @endphp
         <img src="{{ $image }}" alt="" class="h-[200px] w-full object-cover rounded-md">

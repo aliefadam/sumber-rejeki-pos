@@ -42,7 +42,7 @@
                             <td class="px-6 py-4">
                                 {{ $loop->iteration }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 capitalize">
                                 {{ $product->name }}
                             </td>
                             <td class="px-6 py-4">
@@ -56,7 +56,7 @@
                                     if ($product->image) {
                                         $image = "/uploads/products/$product->image";
                                     } else {
-                                        $image = '/imgs/blank-product.png';
+                                        $image = Avatar::create($product->name)->toBase64();
                                     }
                                 @endphp
                                 <img src="{{ $image }}" class="size-20 object-cover rounded-md shadow-md">
@@ -83,6 +83,9 @@
 
 @section('script')
     <script>
+        table.on('draw', function() {
+            $(".btn-delete").click(deleteProduct);
+        });
         $(".btn-delete").click(deleteProduct);
 
         function deleteProduct() {

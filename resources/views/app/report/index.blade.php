@@ -200,6 +200,11 @@
 
 @section('script')
     <script>
+        table.on('draw', function() {
+            initFlowbite();
+            $(".btn-detail").click(detailOrder);
+        });
+
         $(".btn-detail").click(detailOrder);
         $(document).on("click", "#btn-print", printStruk);
 
@@ -234,7 +239,9 @@
 
         function printStruk() {
             const transactionID = $(this).data("id");
-            const url = `my.bluetoothprint.scheme://http://192.168.18.48:8000/transaction/print/${transactionID}`;
+            const domain = "{{ env('DOMAIN') }}";
+            const urlBluetooth = "{{ env('URL_BLUETOOTH') }}";
+            const url = `${urlBluetooth}${domain}/transaction/print/${transactionID}`;
             window.location.href = url;
         }
     </script>

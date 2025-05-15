@@ -27,5 +27,15 @@ class UnitSeeder extends Seeder
             "name" => "Pieces",
             "abbr" => "Pcs",
         ]);
+
+        Unit::create([
+            "name" => "Pack",
+            "abbr" => "Pack",
+        ]);
+
+        Unit::create([
+            "name" => "Kerdus",
+            "abbr" => "Kerdus",
+        ]);
     }
 }
