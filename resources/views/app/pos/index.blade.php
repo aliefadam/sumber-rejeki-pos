@@ -9,7 +9,7 @@
                 </div>
                 <input type="text" id="search-product" name="search"
                     class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-transparent focus:border-gray-800 block w-full ps-10 p-2.5"
-                    placeholder="Cari produk..." required autocomplete="off" />
+                    placeholder="Cari produk..." required autofocus autocomplete="off" />
             </div>
             <div class="mt-5 grid grid-cols-2 lg:grid-cols-4 gap-5 h-[500px]" id="container-product">
                 {{-- <div class="mt-5 grid grid-cols-3 gap-5" id="container-product"> --}}
@@ -323,7 +323,7 @@
             const price = $(this).data("price");
             const abbr = $(this).data("abbr");
             const type = $(this).data("type");
-            const qty = $(this).data("qty") ?? 1;
+            const qty = $(this).data("qty") ?? null;
 
             $("#qty-preview").val(qty);
             $("#image-preview").attr("src", image);

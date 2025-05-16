@@ -9,7 +9,7 @@
         @endphp
         <img src="{{ $image }}" alt="" class="h-[200px] w-full object-cover rounded-md">
         <div class="mt-3 flex flex-col h-[80px]">
-            <span class="poppins-medium text-black">{{ $product->name }}</span>
+            <span class="poppins-medium text-black capitalize">{{ $product->name }}</span>
             <span class="text-gray-600 mt-1 poppins-medium text-sm">
                 {{ format_rupiah($product->price) }} /{{ $product->unit->abbr }}
             </span>
